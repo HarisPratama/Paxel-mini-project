@@ -63,15 +63,13 @@ struct HomeView: View {
                                 
                             }
                         }
-                    }
+                    }.padding(.horizontal, 30.0)
                 }
                 .refreshable {
                     loadData()
                 }
-                .onAppear{
-                    isLoading = true
-                    loadData()
-                }
+                .listStyle(PlainListStyle()) // set the list style to plain
+                .foregroundColor(.white)
             }
         }
         .frame(
@@ -82,8 +80,8 @@ struct HomeView: View {
     
     func loadData() {
         // Define the URL endpoint
-        let getKey = keyword.count > 0 ? keyword : "a"
-        let url = URL(string: "https://api.github.com/search/repositories?q=" + getKey)!
+        isLoading = true
+        let url = URL(string: "https://api.github.com/search/repositories?q=" + keyword)!
 
         // Create a URLSession instance
         let session = URLSession.shared
